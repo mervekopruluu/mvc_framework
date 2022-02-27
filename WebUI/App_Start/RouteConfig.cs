@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Mvc
+namespace WebUI
 {
     public class RouteConfig
     {
@@ -13,7 +13,6 @@ namespace Mvc
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
             routes.MapMvcAttributeRoutes();
-
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

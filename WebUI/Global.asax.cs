@@ -1,4 +1,4 @@
-﻿using Business.DependencyResolvers.Ninject;
+using Business.DependencyResolvers.Ninject;
 using DataAccess.Utilities.Mvc.Infrastructure;
 using System;
 using System.Collections.Generic;
@@ -7,7 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Mvc
+namespace WebUI
 {
     public class MvcApplication : System.Web.HttpApplication
     {
