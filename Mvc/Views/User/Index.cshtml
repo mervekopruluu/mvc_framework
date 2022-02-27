@@ -1,0 +1,158 @@
+﻿@model WebUI.Models.UserModel
+@{
+    ViewBag.Title = "Users | .Net Mvc Project";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section PageVendorCss{
+    <link rel="stylesheet" href="~/Assets/vendor/jquery-ui/jquery-ui.css" />
+    <link rel="stylesheet" href="~/Assets/vendor/jquery-ui/jquery-ui.theme.css" />
+    <link rel="stylesheet" href="~/Assets/vendor/select2/css/select2.css" />
+    <link rel="stylesheet" href="~/Assets/vendor/select2-bootstrap-theme/select2-bootstrap.min.css" />
+    <link rel="stylesheet" href="~/Assets/vendor/datatables/media/css/dataTables.bootstrap4.css" />
+}
+<section role="main" class="content-body">
+    <header class="page-header">
+        <h2>Users</h2>
+        <div class="right-wrapper text-right pr-3">
+            <ol class="breadcrumbs">
+                <li>
+                    <a href="/">
+                        <i class="fas fa-home"></i>
+                    </a>
+                </li>
+                <li><span>Users</span></li>
+            </ol>
+        </div>
+    </header>
+
+    @if (ViewBag.ErrorMsg != null)
+    {
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+            @ViewBag.ErrorMsg
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-8">
+            @{Html.RenderAction("List");}
+        </div>
+        <div class="col-md-4">
+            <section class="card">
+                <header class="card-header">
+                    <div class="card-actions">
+                        <a href="#" class="card-action card-action-toggle" data-card-toggle></a>
+                        <a href="#" class="card-action card-action-dismiss" data-card-dismiss></a>
+                    </div>
+                    <h2 class="card-title">New User</h2>
+                </header>
+                @using (Html.BeginForm("Index", "User", FormMethod.Post, new { @id = "frmUser" }))
+                {
+                    @Html.AntiForgeryToken()
+                    <div class="card-body">
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label class="col-form-label font-weight-bold" for="txtName">Name</label>
+                                @Html.TextBoxFor(m => m.User.Name, new { @class = "form-control", id = "txtName", required = "required" })
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-form-label font-weight-bold" for="txtSurname">Surname</label>
+                                @Html.TextBoxFor(m => m.User.Surname, new { @class = "form-control", id = "txtSurname" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-6">
+                                <label class="col-form-label font-weight-bold" for="txtEmail">E-Mail</label>
+                                @Html.TextBoxFor(m => m.User.Email, new { @class = "form-control", id = "txtEmail", required = "required" })
+                            </div>
+                            <div class="col-md-6">
+                                <label class="col-form-label font-weight-bold" for="txtPhone">Phone</label>
+                                @Html.TextBoxFor(m => m.User.Phone, new { @class = "form-control", id = "txtPhone" })
+                            </div>
+                        </div>
+                        <div class="row form-group">
+                            <div class="col-md-12">
+                                <label class="col-form-label font-weight-bold" for="txtPassword">Password</label>
+                                <div class="input-group">
+                                    @Html.TextBoxFor(m => m.User.Password, new { @class = "form-control", id = "txtPassword", required = "required" })
+                                    <span class="input-group-append">
+                                        <button class="btn btn-info" type="button" id="btnGeneratePassword"><i class="fas fa-redo"></i> </button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        
+
+
+                    </div>
+                    <footer class="card-footer text-right">
+                        @Html.HiddenFor(m => m.User.Id)
+                        <button type="reset" class="btn btn-danger"><i class="fas fa-times"></i> Clean</button>
+                        <button type="submit" class="btn btn-success"><i class="fas fa-save"></i> Save</button>
+                    </footer>
+                }
+            </section>
+        </div>
+
+    </div>
+</section>
+
+@section PageVendorScripts{
+    <script src="~/Assets/vendor/jquery-ui/jquery-ui.js"></script>
+    <script src="~/Assets/vendor/select2/js/select2.js"></script>
+    <script src="~/Assets/vendor/datatables/media/js/jquery.dataTables.min.js"></script>
+    <script src="~/Assets/vendor/datatables/media/js/dataTables.bootstrap4.min.js"></script>
+}
+
+
+@section PageCustomScripts{
+    <script src="~/Assets/vendor/jquery-validation/jquery.validate.js"></script>
+
+    <script type="text/javascript">
+        (function ($) {
+            'use strict';
+
+            $("#frmUser").validate();
+
+            if ($.isFunction($.fn['select2'])) {
+                $(function () {
+                    $('.populate').each(function () {
+                        var $this = $(this),
+                            opts = {};
+                        var pluginOptions = $this.data('plugin-options');
+                        if (pluginOptions)
+                            opts = pluginOptions;
+                        $this.themePluginSelect2(opts);
+                    });
+                });
+            }
+
+            $('#btnGeneratePassword').on("click", function () {
+                $('#txtPassword').val(GeneratePassword(6));
+            });
+
+            var datatableInit = function () {
+                $('#datatable-default').dataTable({
+                    dom: '<"row"<"col-lg-6"l><"col-lg-6"f>><"table-responsive"t>p'
+                });
+            };
+            $(function () {
+                datatableInit();
+            });
+
+            function GeneratePassword(length) {
+                var chars = "abcdefghijklmnopqrstuvwxyz!#$%^&*()-+<>ABCDEFGHIJKLMNOP1234567890";
+                var pass = "";
+                for (var x = 0; x < length; x++) {
+                    var i = Math.floor(Math.random() * chars.length);
+                    pass += chars.charAt(i);
+                }
+                return pass;
+            };
+
+
+        }).apply(this, [jQuery]);
+    </script>
+}
+

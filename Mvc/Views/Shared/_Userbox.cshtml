@@ -1,0 +1,25 @@
+﻿@model Entities.Concrete.User
+
+<div id="userbox" class="userbox" >
+    <a href="#" data-toggle="dropdown">
+        <figure class="profile-picture">
+            <div class="avatar-initials " width="35" height="35" data-name="@Model.Name @Model.Surname"></div>
+        </figure>
+        <div class="profile-info">
+            <span class="name">@Model.Name @Model.Surname</span>
+        </div>
+
+        <i class="fa custom-caret"></i>
+    </a>
+
+    <div class="dropdown-menu">
+        <ul class="list-unstyled">
+            <li class="divider"></li>
+            
+            <li>
+                <a role="menuitem" tabindex="-1" href="/logoff"><i class="fas fa-power-off"></i> Exit</a>
+            </li>
+        </ul>
+    </div>
+</div>
+

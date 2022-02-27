@@ -1,0 +1,131 @@
+﻿@model WebUI.ViewModels.LoginViewModel
+
+<!DOCTYPE html>
+
+<html class="fixed">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <meta name="keywords" content="" />
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800|Shadows+Into+Light" rel="stylesheet" type="text/css">
+    
+    <!-- Vendor CSS -->
+    <link rel="stylesheet" href="~/Assets/vendor/bootstrap/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/Assets/vendor/animate/animate.css">
+
+    <link rel="stylesheet" href="~/Assets/vendor/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/Assets/vendor/magnific-popup/magnific-popup.css" />
+    <link rel="stylesheet" href="~/Assets/vendor/bootstrap-datepicker/css/bootstrap-datepicker3.css" />
+
+    <!-- Theme CSS -->
+    <link rel="stylesheet" href="~/Assets/css/theme.css" />
+
+    <!-- Skin CSS -->
+    <link rel="stylesheet" href="~/Assets/css/skins/default.css" />
+
+    <!-- Theme Custom CSS -->
+    <link rel="stylesheet" href="~/Assets/css/custom.css">
+
+    <!-- Head Libs -->
+    <script src="~/Assets/vendor/modernizr/modernizr.js"></script>
+
+</head>
+<body>
+    <section class="body-sign">
+        <div class="center-sign">
+            <a href="/" class="logo">
+                <img src="~/Assets/img/logo.png" alt="" height="50" />
+            </a>
+            <div class="panel card-sign">
+                <div class="card-body">
+                    @using (Html.BeginForm("Index", "Security", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="form-group mb-3">
+                            <label>E-Mail</label>
+                            <div class="input-group">
+                                @Html.TextBoxFor(m => m.UserName, new { @class = "form-control form-control-lg" })
+                                <span class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-user"></i>
+                                    </span>
+                                </span>
+                            </div>
+                            <span class="text-danger"> @Html.ValidationMessageFor(m => m.UserName)</span>
+                        </div>
+
+                        <div class="form-group mb-3">
+                            <div class="clearfix">
+                                <label class="float-left">Password</label>
+                            </div>
+                            <div class="input-group">
+                                @Html.PasswordFor(m => m.UserPassword, new { @class = "form-control form-control-lg", role = "form" })
+                                <span class="input-group-append">
+                                    <span class="input-group-text">
+                                        <i class="fas fa-lock"></i>
+                                    </span>
+                                </span>
+                            </div>
+                            <span class="text-danger"> @Html.ValidationMessageFor(m => m.UserPassword) </span>
+                        </div>
+                       
+                        <div class="row">
+                            <div class="col-sm-8">
+                                @if (Model.UserRememberMe == true)
+                                {
+                                    <div class="checkbox">
+                                        <input id="UserRememberMe" name="UserRememberMe" value="true" type="checkbox" checked />
+                                        <label for="RememberMe">Remember Me</label>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="checkbox">
+                                        <input id="UserRememberMe" name="UserRememberMe" value="true" type="checkbox" />
+                                        <label for="RememberMe">Remember Me</label>
+                                    </div>
+                                }
+
+                            </div>
+                            <div class="col-sm-4 text-right">
+                                <button type="submit" class="btn btn-info mt-2" id="btnLogin">Login</button>
+                            </div>
+                        </div>
+
+                    }
+                    <div class="mb-1 mt-1 text-center">
+                        <p class="text-center text-danger">@ViewBag.Message</p>
+                    </div>
+                </div>
+            </div>
+
+            <p class="text-center text-muted mt-3 mb-3">&copy; Copyright 2021.</p>
+        </div>
+    </section>
+    <script src="~/Assets/vendor/jquery/jquery.js"></script>
+    <script src="~/Assets/vendor/jquery-browser-mobile/jquery.browser.mobile.js"></script>
+    <script src="~/Assets/vendor/popper/umd/popper.min.js"></script>
+    <script src="~/Assets/vendor/bootstrap/js/bootstrap.js"></script>
+    <script src="~/Assets/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js"></script>
+    <script src="~/Assets/vendor/common/common.js"></script>
+    <script src="~/Assets/vendor/nanoscroller/nanoscroller.js"></script>
+    <script src="~/Assets/vendor/magnific-popup/jquery.magnific-popup.js"></script>
+    <script src="~/Assets/vendor/jquery-placeholder/jquery.placeholder.js"></script>
+
+    <!-- Theme Base, Components and Settings -->
+    <script src="~/Assets/js/theme.js"></script>
+
+    <!-- Theme Custom -->
+    <script src="~/Assets/js/custom.js"></script>
+
+    <!-- Theme Initialization Files -->
+    <script src="~/Assets/js/theme.init.js"></script>
+    <script>
+      
+    </script>
+</body>
+</html>

@@ -1,0 +1,8 @@
+/* Add here all your CSS customizations */
+._avatar-initials {
+    position: inherit;
+    left: 50%;
+    top: 100%;
+    margin-top: 75px;
+    transform: translate3d(-50%, -50%, 0);
+}
